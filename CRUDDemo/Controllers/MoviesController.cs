@@ -61,7 +61,8 @@ namespace CRUDDemo.Controllers
             }
             else ctx.Movies.Add(request);
             ctx.SaveChanges();
-            return RedirectToAction("Detail", "Movies", new { MovieName = request.MovieName });
+            // return RedirectToAction("Detail", "Movies", new { MovieName = request.MovieName });
+            return RedirectToAction("Index", "Movies");
         }
 
         public ActionResult Delete(string MovieName)
