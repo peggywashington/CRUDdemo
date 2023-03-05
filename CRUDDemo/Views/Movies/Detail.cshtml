@@ -1,0 +1,80 @@
+﻿@model CRUDDemo.Data.Entities.Movies
+
+@{
+    ViewBag.Title = "MovieDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@helper ratingStars(int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        <li class="fa fa-star"></li>
+    }
+    for (int i = count; i < 5; i++)
+    {
+        <li class="fa fa-star disable"></li>
+    }
+}
+
+<script>
+    $(document).ready(function () {
+@*        shared view... how to decide*@
+        if ($("#MovieName").val() == "New Movie") {
+            $("#MovieName").removeAttr("disabled")
+            $("#Rate").removeAttr("disabled")
+            $("#Comment").removeAttr("disabled")
+            $("#submit-button").removeAttr("disabled")
+            $("#edit-button").hide()
+        }
+    });
+
+    function Edit() {
+        $("#Rate").removeAttr("disabled")
+        $("#Comment").removeAttr("disabled")
+        $("#submit-button").removeAttr("disabled")
+    }
+@*    nope*@
+@*    function Submit() {
+        $("#Rate").attr("disabled", "disabled")
+        $("#Comment").attr("disabled", "disabled")
+        $("#submit-button").attr("disabled", "disabled")
+    }*@
+@*    works*@
+    $("#submit-button").click(function () {
+        $("#Rate").attr("disabled", "disabled")
+        $("#Comment").attr("disabled", "disabled")
+        $("#submit-button").attr("disabled", "disabled")
+    });
+</script>
+
+<div class="container">
+    <h3 class="h3">Movie Detail</h3>
+@*    (action method,controller,FormMethod) for submitting the form*@
+    @using (Html.BeginForm("Submit", "Movies", FormMethod.Post, new { @class = "item-form" }))
+    {
+        <div class="form-row">
+            @*<label class="control-label col-md-2">Movie Name</label>
+            <input id="MovieName" class="form-control" placeholder="Movie Name" autofocus="" disabled="disabled" value="@ViewBag.movieThis.MovieName" />*@
+            @Html.LabelFor(m => m.MovieName, "Movie Name", new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(m => m.MovieName, new { @class = "form-control", placeholder = "Movie Name", autofocus = "", disabled = "disabled" })
+        </div>
+        <div class="form-row">
+            @*<label class="control-label col-md-2">Rate</label>
+            <input id="Rate" class="form-control" placeholder="Rate" autofocus="" disabled="disabled" value="@ViewBag.movieThis.Rate" />*@
+            @Html.LabelFor(m => m.Rate, "Rate", new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(m => m.Rate, new { @class = "form-control", placeholder = "Rate", autofocus = "", disabled = "disabled" })
+        </div>
+        <div class="form-row">
+            @*<label class="control-label col-md-2">Comment</label>
+            <textarea id="Comment" class="form-control" placeholder="Comment" autofocus="" disabled="disabled">@ViewBag.movieThis.Comment</textarea>*@
+            @Html.LabelFor(m => m.Comment, "Comment", new { @class = "control-label col-md-2" })
+            @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder = "Comment", autofocus = "", disabled = "disabled" })
+        </div>
+        <div class="form-row">
+            <input id="edit-button" type="button" class="btn btn-md btn-primary" value="Edit" onclick="Edit()" />
+            @*            <input type="button" class="btn btn-md btn-primary" value="Submit" onclick="Submit()" />*@
+            <button id="submit-button" class="btn btn-md btn-primary" type="submit" disabled="disabled">Submit</button>
+        </div>
+    }
+</div>

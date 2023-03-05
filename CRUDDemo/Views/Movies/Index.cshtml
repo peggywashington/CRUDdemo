@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@helper ratingStars(int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        <li class="fa fa-star"></li>
+    }
+    for (int i = count; i < 5; i++)
+    {
+        <li class="fa fa-star disable"></li>
+    }
+}
+@helper itemRender(int count)
+{
+    if (@ViewBag.moviesList != null)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            if (@ViewBag.moviesList[i] != null)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="item-grid">
+                        <div class="item-image">
+                            <a href="/movies/Detail/@ViewBag.moviesList[i].MovieName">
+                                <img src="../../Content/Images/Movies/@ViewBag.moviesList[i].Picture">
+                            </a>
+                            <ul class="social">
+                                <li><a href="/Movies/Detail/@ViewBag.moviesList[i].MovieName" data-tip="Edit"><i class="fa fa-edit"></i></a></li>
+                                <li><a href='@Url.Action("Delete", "Movies", new { MovieName = @ViewBag.moviesList[i].MovieName })' data-tip="Delete"><i class="fa fa-trash"></i></a></li>
+                            </ul>
+                            @*                <span class="product-new-label">Sale</span>
+                            <span class="product-discount-label">20%</span>*@
+                        </div>
+                        <ul class="rating">
+                            @ratingStars(@ViewBag.moviesList[i].Rate)
+                        </ul>
+                        <div class="item-content">
+                            <h3 class="title"><a href="/movies/Detail/@ViewBag.moviesList[i].MovieName">@ViewBag.moviesList[i].MovieName</a></h3>
+                            @*                <div class="price">
+                                $16.00
+                                <span>$20.00</span>
+                            </div>
+                            <a class="add-to-cart" href="">+ Add To Cart</a>*@
+                        </div>
+                    </div>
+                </div>
+            }
+            else {
+                break;
+            }
+        }
+    }
+}
+
+<div class="head">
+    <h3 class="h3">My Movies</h3>
+    <ul>
+        <li><a href="/Movies/Detail/New Movie" data-tip="Edit"><i class="fa fa-plus"></i></a></li>
+    </ul>
+</div>
+
+<div class="row">
+    @itemRender(20)
+</div>

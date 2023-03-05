@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DoujiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Doujia.dbo.Movie' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="MovieName" />
+      <PropertyRef Name="Picture" />
+    </Key>
+    <Property Name="MovieName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Rate" Type="float" />
+    <Property Name="Comment" Type="varchar(max)" />
+    <Property Name="Picture" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="DoujiaModelStoreContainer">
+    <EntitySet Name="Movie" EntityType="Self.Movie" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Movie].[MovieName] AS [MovieName], 
+    [Movie].[Rate] AS [Rate], 
+    [Movie].[Comment] AS [Comment], 
+    [Movie].[Picture] AS [Picture]
+    FROM [dbo].[Movie] AS [Movie]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
