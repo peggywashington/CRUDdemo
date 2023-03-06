@@ -269,3 +269,8 @@ ul {
         margin-left: 50px;
     }
 
+img[src=''],
+img:not([src]) {
+    opacity: 0;
+}
+

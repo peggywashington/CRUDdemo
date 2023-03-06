@@ -3,6 +3,7 @@ using CRUDDemo.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -51,13 +52,15 @@ namespace CRUDDemo.Controllers
 
         [HttpPost]
         [Route("Movies/Detail/{MovieName}")]
-        public ActionResult Submit(Movies request)
+        public ActionResult Submit(Movies request,HttpPostedFileBase file)
         {
             var entity = ctx.Movies.FirstOrDefault(item => item.MovieName == request.MovieName);
+            Console.WriteLine(entity);
             if (entity != null)
             {
                 entity.Rate = request.Rate;
                 entity.Comment = request.Comment;
+                entity.Picture = request.Picture;
             }
             else ctx.Movies.Add(request);
             ctx.SaveChanges();

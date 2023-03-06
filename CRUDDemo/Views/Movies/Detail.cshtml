@@ -24,14 +24,24 @@
             $("#MovieName").removeAttr("disabled")
             $("#Rate").removeAttr("disabled")
             $("#Comment").removeAttr("disabled")
+            $("#imgUpload").removeAttr("disabled")
             $("#submit-button").removeAttr("disabled")
             $("#edit-button").hide()
         }
+        
+        $('#imgUpload').change(function() {
+            const file = this.files[0];
+            $('#ImgField img').attr('src', "../../Content/Images/Movies/"+file.name);
+            $('#Picture').val(file.name);
+            $('#imgUpload').hide();
+        });
     });
 
     function Edit() {
         $("#Rate").removeAttr("disabled")
         $("#Comment").removeAttr("disabled")
+        $("#imgUpload").removeAttr("disabled")
+        $("#imgShow").css("cursor","pointer")
         $("#submit-button").removeAttr("disabled")
     }
 @*    nope*@
@@ -44,6 +54,7 @@
     $("#submit-button").click(function () {
         $("#Rate").attr("disabled", "disabled")
         $("#Comment").attr("disabled", "disabled")
+        $("#imgUpload").attr("disabled", "disabled")
         $("#submit-button").attr("disabled", "disabled")
     });
 </script>
@@ -70,6 +81,12 @@
             <textarea id="Comment" class="form-control" placeholder="Comment" autofocus="" disabled="disabled">@ViewBag.movieThis.Comment</textarea>*@
             @Html.LabelFor(m => m.Comment, "Comment", new { @class = "control-label col-md-2" })
             @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder = "Comment", autofocus = "", disabled = "disabled" })
+        </div>
+        <div class="form-row" id="ImgField">
+            @Html.LabelFor(m => m.Picture, "Picture", new { @class = "control-label col-md-2 "})
+            <input type="file" id="imgUpload" disabled = "disabled" style="display:none;"/>
+            <img id="imgShow" src="../../Content/Images/Movies/@Model.Picture"  style="max-width:25%; max-height:25%;" onclick="$('#imgUpload').click();" onerror="this.onerror=null;this.src='';$('#imgUpload').show();">
+            @Html.TextBoxFor(m => m.Picture, new { @class = "form-control",style="display:none"})
         </div>
         <div class="form-row">
             <input id="edit-button" type="button" class="btn btn-md btn-primary" value="Edit" onclick="Edit()" />
