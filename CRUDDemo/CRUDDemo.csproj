@@ -147,7 +147,6 @@
     <Content Include="Content\Images\Movies\ThreeBody.png" />
     <Content Include="Content\Images\Movies\TheBatman2022.jpg" />
     <Content Include="Content\Images\Movies\TheLastDuel2021.jpg" />
-    <Content Include="Content\Images\TheLastDuel2021.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

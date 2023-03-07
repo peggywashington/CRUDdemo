@@ -1,11 +1,6 @@
 ﻿using CRUDDemo.Data;
 using CRUDDemo.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
     
 namespace CRUDDemo.Controllers
@@ -19,13 +14,12 @@ namespace CRUDDemo.Controllers
         {
             using (ctx)
             {
-                Movies[] moviesList = new Movies[16];
+                Movies[] moviesList = new Movies[24];
                 int count = 0;
                 foreach (var movie in ctx.Movies)
                 {
                     moviesList[count] = movie;
                     ViewBag.moviesList = moviesList;
-                    /*                    Debug.WriteLine(moviesList[count].MovieName);*/
                     count++;
                 }
             }
@@ -52,28 +46,33 @@ namespace CRUDDemo.Controllers
 
         [HttpPost]
         [Route("Movies/Detail/{MovieName}")]
-        public ActionResult Submit(Movies request,HttpPostedFileBase file)
+        public ActionResult Submit(Movies request)
         {
-            var entity = ctx.Movies.FirstOrDefault(item => item.MovieName == request.MovieName);
-            Console.WriteLine(entity);
-            if (entity != null)
+            using (ctx)
             {
-                entity.Rate = request.Rate;
-                entity.Comment = request.Comment;
-                entity.Picture = request.Picture;
+                var entity = ctx.Movies.FirstOrDefault(item => item.MovieName == request.MovieName);
+                if (entity != null)
+                {
+                    entity.Rate = request.Rate;
+                    entity.Comment = request.Comment;
+                    entity.Picture = request.Picture;
+                }
+                else ctx.Movies.Add(request);
+                ctx.SaveChanges();   
             }
-            else ctx.Movies.Add(request);
-            ctx.SaveChanges();
             // return RedirectToAction("Detail", "Movies", new { MovieName = request.MovieName });
             return RedirectToAction("Index", "Movies");
         }
 
         public ActionResult Delete(string MovieName)
         {
-            var entity = ctx.Movies.FirstOrDefault(item => item.MovieName == MovieName);
-            if (entity != null)
-                ctx.Movies.Remove(entity);
-            ctx.SaveChanges();
+            using (ctx)
+            {
+                var entity = ctx.Movies.FirstOrDefault(item => item.MovieName == MovieName);
+                if (entity != null)
+                    ctx.Movies.Remove(entity);
+                ctx.SaveChanges();   
+            }
             return RedirectToAction("Index", "Movies");
         }
     }

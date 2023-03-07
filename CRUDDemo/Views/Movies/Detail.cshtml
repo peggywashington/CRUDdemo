@@ -71,14 +71,10 @@
             @Html.TextBoxFor(m => m.MovieName, new { @class = "form-control", placeholder = "Movie Name", autofocus = "", disabled = "disabled" })
         </div>
         <div class="form-row">
-            @*<label class="control-label col-md-2">Rate</label>
-            <input id="Rate" class="form-control" placeholder="Rate" autofocus="" disabled="disabled" value="@ViewBag.movieThis.Rate" />*@
             @Html.LabelFor(m => m.Rate, "Rate", new { @class = "control-label col-md-2" })
             @Html.TextBoxFor(m => m.Rate, new { @class = "form-control", placeholder = "Rate", autofocus = "", disabled = "disabled" })
         </div>
         <div class="form-row">
-            @*<label class="control-label col-md-2">Comment</label>
-            <textarea id="Comment" class="form-control" placeholder="Comment" autofocus="" disabled="disabled">@ViewBag.movieThis.Comment</textarea>*@
             @Html.LabelFor(m => m.Comment, "Comment", new { @class = "control-label col-md-2" })
             @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder = "Comment", autofocus = "", disabled = "disabled" })
         </div>
@@ -90,7 +86,6 @@
         </div>
         <div class="form-row">
             <input id="edit-button" type="button" class="btn btn-md btn-primary" value="Edit" onclick="Edit()" />
-            @*            <input type="button" class="btn btn-md btn-primary" value="Submit" onclick="Submit()" />*@
             <button id="submit-button" class="btn btn-md btn-primary" type="submit" disabled="disabled">Submit</button>
         </div>
     }

@@ -25,25 +25,18 @@
                     <div class="item-grid">
                         <div class="item-image">
                             <a href="/movies/Detail/@ViewBag.moviesList[i].MovieName">
-                                <img src="../../Content/Images/Movies/@ViewBag.moviesList[i].Picture">
+                                <img src="../../Content/Images/Movies/@ViewBag.moviesList[i].Picture" onerror="this.onerror=null;this.src='';">
                             </a>
                             <ul class="social">
                                 <li><a href="/Movies/Detail/@ViewBag.moviesList[i].MovieName" data-tip="Edit"><i class="fa fa-edit"></i></a></li>
                                 <li><a href='@Url.Action("Delete", "Movies", new { MovieName = @ViewBag.moviesList[i].MovieName })' data-tip="Delete"><i class="fa fa-trash"></i></a></li>
                             </ul>
-                            @*                <span class="product-new-label">Sale</span>
-                            <span class="product-discount-label">20%</span>*@
                         </div>
                         <ul class="rating">
                             @ratingStars(@ViewBag.moviesList[i].Rate)
                         </ul>
                         <div class="item-content">
                             <h3 class="title"><a href="/movies/Detail/@ViewBag.moviesList[i].MovieName">@ViewBag.moviesList[i].MovieName</a></h3>
-                            @*                <div class="price">
-                                $16.00
-                                <span>$20.00</span>
-                            </div>
-                            <a class="add-to-cart" href="">+ Add To Cart</a>*@
                         </div>
                     </div>
                 </div>
@@ -58,10 +51,10 @@
 <div class="head">
     <h3 class="h3">My Movies</h3>
     <ul>
-        <li><a href="/Movies/Detail/New Movie" data-tip="Edit"><i class="fa fa-plus"></i></a></li>
+        <li><a href="/Movies/Detail/New Movie" data-tip="New"><i class="fa fa-plus"></i></a></li>
     </ul>
 </div>
 
 <div class="row">
-    @itemRender(20)
+    @itemRender(24)
 </div>
