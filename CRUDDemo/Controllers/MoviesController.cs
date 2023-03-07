@@ -46,22 +46,28 @@ namespace CRUDDemo.Controllers
 
         [HttpPost]
         [Route("Movies/Detail/{MovieName}")]
-        public ActionResult Submit(Movies request)
+        public ActionResult Detail(Movies request)
         {
-            using (ctx)
+            if (ModelState.IsValid)
             {
-                var entity = ctx.Movies.FirstOrDefault(item => item.MovieName == request.MovieName);
-                if (entity != null)
+                using (ctx)
                 {
-                    entity.Rate = request.Rate;
-                    entity.Comment = request.Comment;
-                    entity.Picture = request.Picture;
+                    var entity = ctx.Movies.FirstOrDefault(item => item.MovieName == request.MovieName);
+                    if (entity != null)
+                    {
+                        entity.Rate = request.Rate;
+                        entity.Comment = request.Comment;
+                        entity.Picture = request.Picture;
+                    }
+                    else ctx.Movies.Add(request);
+
+                    ctx.SaveChanges();
                 }
-                else ctx.Movies.Add(request);
-                ctx.SaveChanges();   
+
+                return RedirectToAction("Index", "Movies");
             }
-            // return RedirectToAction("Detail", "Movies", new { MovieName = request.MovieName });
-            return RedirectToAction("Index", "Movies");
+            
+            return View(request);
         }
 
         public ActionResult Delete(string MovieName)

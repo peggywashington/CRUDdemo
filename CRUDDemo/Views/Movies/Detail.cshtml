@@ -62,7 +62,7 @@
 <div class="container">
     <h3 class="h3">Movie Detail</h3>
 @*    (action method,controller,FormMethod) for submitting the form*@
-    @using (Html.BeginForm("Submit", "Movies", FormMethod.Post, new { @class = "item-form" }))
+    @using (Html.BeginForm("Detail", "Movies", FormMethod.Post, new { @class = "item-form" }))
     {
         <div class="form-row">
             @*<label class="control-label col-md-2">Movie Name</label>
@@ -73,6 +73,7 @@
         <div class="form-row">
             @Html.LabelFor(m => m.Rate, "Rate", new { @class = "control-label col-md-2" })
             @Html.TextBoxFor(m => m.Rate, new { @class = "form-control", placeholder = "Rate", autofocus = "", disabled = "disabled" })
+            @Html.ValidationMessageFor(m => m.Rate, "", new { @class = "text-danger" })
         </div>
         <div class="form-row">
             @Html.LabelFor(m => m.Comment, "Comment", new { @class = "control-label col-md-2" })
